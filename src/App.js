@@ -73,7 +73,7 @@ function calculateWinner(squares) {
   ];
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
-    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c] && squares[a] !== null) {
       return squares[a];
     }
   }
@@ -101,7 +101,7 @@ export default function Game() {
 
   useEffect(() => {
     if (mode === 'PvE' && !xIsNext) {
-      console.log('bestMove', bestMove);
+      const bestMove = findBestMove(squares, 'O');
       const newSquares = squares.slice();
       newSquares[bestMove] = 'O';
       handlePlay(newSquares);
