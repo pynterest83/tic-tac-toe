@@ -11,6 +11,14 @@ function ModeSelector({ onModeChange }) {
   );
 }
 
+function ThemeToggle({ onThemeChange }) {
+  return (
+    <div className="theme-toggle">
+      <button onClick={onThemeChange}>Toggle Theme</button>
+    </div>
+  );
+}
+
 function Square({ value, onSquareClick }) {
   return (
     <button className="square" onClick={onSquareClick}>
@@ -88,6 +96,7 @@ export default function Game() {
   const [xIsNext, setXIsNext] = useState(true);
   const [squares, setSquares] = useState(Array(9).fill(null));
   const [mode, setMode] = useState(null); // 'PvP' or 'PvE'
+  const [theme, setTheme] = useState('light');
 
   function handlePlay(newSquares) {
     setSquares(newSquares);
@@ -100,6 +109,10 @@ export default function Game() {
     setXIsNext(true);
   }
 
+  function handleThemeChange() {
+    setTheme(theme === 'light' ? 'dark' : 'light');
+  }
+
   useEffect(() => {
     if (mode === 'PvE' && !xIsNext) {
       const bestMove = findBestMove(squares, 'O');
@@ -110,7 +123,8 @@ export default function Game() {
   }, [xIsNext, mode, squares]);
 
   return (
-    <div className="game">
+    <div className={`game ${theme}`}>
+      <ThemeToggle onThemeChange={handleThemeChange} />
       <ModeSelector onModeChange={handleModeChange} />
       <div className="game-board">
         <Board xIsNext={xIsNext} squares={squares} onPlay={handlePlay} />
