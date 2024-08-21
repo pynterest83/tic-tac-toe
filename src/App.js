@@ -1,13 +1,37 @@
 import { useState, useEffect } from 'react';
 import findBestMove from './minimax';
+import { MdRestartAlt, MdSettings, MdInvertColors } from 'react-icons/md';
+import {BsPeopleFill, BsPersonFill} from 'react-icons/bs';
 import "./App.css";
 
-function Buttons({ onModeChange ,onThemeChange }) {
+function Buttons({ onModeChange, onThemeChange, currentMode }) {
   return (
     <div className="buttons">
-      <button onClick={() => onModeChange('PvP')}>Player vs Player</button>
-      <button onClick={() => onModeChange('PvE')}>Player vs Environment</button>
-      <button onClick={onThemeChange}>Toggle Theme</button>
+      {/* Player vs Player Icon */}
+      <BsPeopleFill 
+        size={24} 
+        title="Player vs Player"
+        className={currentMode === 'PvP' ? 'active' : ''}
+        style={{ cursor: 'pointer' }}
+        onClick={() => onModeChange('PvP')}
+      />
+      
+      {/* Player vs Environment Icon */}
+      <BsPersonFill 
+        size={24} 
+        title="Player vs Environment"
+        className={currentMode === 'PvE' ? 'active' : ''}
+        style={{ cursor: 'pointer' }}
+        onClick={() => onModeChange('PvE')}
+      />
+      
+      {/* Toggle Theme Icon */}
+      <MdInvertColors 
+        size={24} 
+        title="Toggle Theme"
+        style={{ cursor: 'pointer' }}
+        onClick={onThemeChange}
+      />
     </div>
   );
 }
@@ -42,7 +66,6 @@ function Board({ xIsNext, squares, onPlay }) {
 
   return (
     <>
-      <div className="status">{status}</div>
       <div className="board-row">
         <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
         <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
@@ -117,10 +140,11 @@ export default function Game() {
 
   return (
     <div className={`game ${theme}`}>
-      <Buttons onModeChange={handleModeChange} onThemeChange={handleThemeChange}/>
+      <Buttons onModeChange={handleModeChange} onThemeChange={handleThemeChange} currentMode={mode}/>
       <div className="game-board">
         <Board xIsNext={xIsNext} squares={squares} onPlay={handlePlay} />
       </div>
+      <span className='game-name'>Tic-Tac-Toe</span>
     </div>
   );
 }

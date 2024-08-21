@@ -1,118 +1,176 @@
-/* App.css */
-
+/* Base styles */
 body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #f0f0f0;
-  }
-  
-  .game {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100vw;
-    height: 100vh;
-    box-sizing: border-box;
-    padding: 20px;
-  }
-  
-  .buttons {
-    margin-bottom: 2vh;
-  }
-  
-  .buttons button {
-    margin: 0 1vw;
-    padding: 1vh 2vw;
-    font-size: 2vh;
-    cursor: pointer;
-    border: none;
-    background-color: #007bff;
-    color: white;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-  }
-  
-  .buttons button:hover {
-    background-color: #0056b3;
-  }
-  
-  .buttons button {
-    background-color: #28a745;
-  }
-  
-  /* Board styles */
-  .board-row {
-    display: flex;
-  }
-  
-  .square {
-    width: 10vw;
-    height: 10vw;
-    background-color: white;
-    border: 1px solid #999;
-    font-size: 4vw;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: background-color 0.3s;
-  }
-  
-  .square:hover {
-    background-color: #ddd;
-  }
-  
-  .status {
-    margin-bottom: 2vh;
-    font-size: 3vh;
-    font-weight: bold;
-  }
-  
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #ffffff; /* Default background color for light mode */
+  transition: background-color 0.3s ease;
+}
+
+.game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90vw; /* Width relative to the viewport width */
+  height: 90vh; /* Height relative to the viewport height */
+  box-sizing: border-box;
+  padding: 20px;
+  background-color: #f0f0f0; /* Light mode background */
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+  overflow: hidden; /* Hide overflow to prevent scrollbars */
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 2vw; /* Responsive gap for title */
+  font-size: 4vw;
+  color: #000000; /* Black color for light mode text */
+  margin-bottom: 2vh;
+}
+
+.title svg {
+  font-size: 8vw; /* Increased size for the icon next to the title */
+}
+
+.buttons {
+  display: flex;
+  gap: 6vw; /* Increased gap between buttons */
+  margin-bottom: 4vh; /* Responsive bottom margin */
+}
+
+.buttons svg {
+  font-size: 10vw; /* Increased size for the icons */
+  color: #000000; /* Black color for icons */
+  transition: transform 0.2s ease, color 0.3s ease;
+  cursor: pointer;
+}
+
+.buttons svg:hover {
+  transform: scale(1.2);
+  color: #333333; /* Darker gray on hover */
+}
+
+.buttons svg.active {
+  transform: scale(1.2);
+  color: #333333; /* Darker gray on hover */
+}
+
+.board-row {
+  display: flex;
+}
+
+.square {
+  width: 12vw; /* Increased size relative to the viewport width */
+  height: 12vw; /* Increased size relative to the viewport width */
+  background-color: #e0e0e0; /* Light gray background */
+  border: 1px solid #000000; /* Black border */
+  font-size: 8vw; /* Increased font size */
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s;
+  border-radius: 10px;
+  color: #000000; /* Black color for numbers */
+}
+
+.square:hover {
+  background-color: #cccccc; /* Slightly darker gray on hover */
+}
+
+.status {
+  margin-top: 2vh;
+  font-size: 3vh;
+  font-weight: bold;
+  color: #000000; /* Black color for status text */
+}
+
 /* Responsive styles */
-@media (max-width: 600px) and (max-height: 600px) {
-    .square {
-      width: 15vw;
-      height: 15vw;
+@media (max-width: 600px) {
+  .title {
       font-size: 6vw;
-    }
-  
-    .buttons button {
-      margin: 0 2vw;
-      padding: 2vh 4vw;
-      font-size: 3vw;
-    }
-  
-    .status {
-      font-size: 4vw;
-    }
   }
-  
-  /* Dark theme styles */
-  .game.dark {
-    background-color: #333;
-    color: white;
+
+  .buttons {
+      gap: 6vw; /* Larger gap between buttons in smaller viewports */
+      margin-bottom: 6vh; /* Larger bottom margin for smaller screens */
   }
-  
-  .game.dark .square {
-    background-color: #444;
-    border: 1px solid #666;
-    color: white;
+
+  .buttons svg {
+      font-size: 12vw; /* Larger icon size for smaller screens */
   }
-  
-  .game.dark .square:hover {
-    background-color: #555;
+
+  .square {
+      width: 25vw; /* Increased size relative to the viewport width */
+      height: 25vw; /* Increased size relative to the viewport width */
+      font-size: 10vw; /* Increased font size */
   }
-  
-  .game.dark .buttons button {
-    background-color: #555;
-    color: white;
+}
+
+/* Dark theme styles */
+body.dark {
+  background-color: #000000; /* Dark mode background */
+}
+
+.game.dark {
+  background-color: #333333; /* Dark gray for dark mode */
+  color: #ffffff; /* White text in dark mode */
+}
+
+.game.dark .title {
+  color: #ffffff; /* White color for title text in dark mode */
+}
+
+.game.dark .square {
+  background-color: #444444; /* Darker gray for squares */
+  border: 1px solid #ffffff; /* White border in dark mode */
+  color: #ffffff; /* White text color */
+}
+
+.game.dark .square:hover {
+  background-color: #555555; /* Slightly lighter gray on hover */
+}
+
+.game.dark .buttons svg {
+  font-size: 10vw; /* Increased size for the icons */
+  color: #ffffff; /* Black color for icons */
+  transition: transform 0.2s ease, color 0.3s ease;
+  cursor: pointer;
+}
+
+.game.dark .buttons svg:hover {
+  transform: scale(1.2); /* Larger scaling on hover in dark mode */
+  color: #cccccc; /* Lighter gray on hover in dark mode */
+}
+
+.game.dark .buttons svg.active {
+  transform: none; /* No scaling for active mode */
+  color: #cccccc; /* Lighter gray for active mode */
+}
+
+.game-name {
+  margin-top: 4vh; /* Responsive distance from the bottom of the board */
+  font-size: 3vw; /* Responsive font size */
+  font-weight: bold;
+  color: #000000; /* Black color for light mode */
+  transition: color 0.3s ease;
+}
+
+/* Dark theme styles for game name */
+.game.dark .game-name {
+  color: #ffffff; /* White color for dark mode */
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+  .game-name {
+    margin-top: 6vh; /* Larger distance for smaller screens */
+    font-size: 6vw; /* Larger font size for smaller screens */
   }
-  
-  .game.dark .buttons button:hover {
-    background-color: #666;
-  }
+}
