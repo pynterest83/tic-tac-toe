@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import findBestMove from './minimax';
+import "./App.css";
 
 function ModeSelector({ onModeChange }) {
   return (
