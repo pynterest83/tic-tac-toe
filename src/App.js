@@ -2,18 +2,11 @@ import { useState, useEffect } from 'react';
 import findBestMove from './minimax';
 import "./App.css";
 
-function ModeSelector({ onModeChange }) {
+function Buttons({ onModeChange ,onThemeChange }) {
   return (
-    <div className="mode-selector">
+    <div className="buttons">
       <button onClick={() => onModeChange('PvP')}>Player vs Player</button>
       <button onClick={() => onModeChange('PvE')}>Player vs Environment</button>
-    </div>
-  );
-}
-
-function ThemeToggle({ onThemeChange }) {
-  return (
-    <div className="theme-toggle">
       <button onClick={onThemeChange}>Toggle Theme</button>
     </div>
   );
@@ -124,8 +117,7 @@ export default function Game() {
 
   return (
     <div className={`game ${theme}`}>
-      <ThemeToggle onThemeChange={handleThemeChange} />
-      <ModeSelector onModeChange={handleModeChange} />
+      <Buttons onModeChange={handleModeChange} onThemeChange={handleThemeChange}/>
       <div className="game-board">
         <Board xIsNext={xIsNext} squares={squares} onPlay={handlePlay} />
       </div>

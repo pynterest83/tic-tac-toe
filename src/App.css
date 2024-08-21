@@ -1,6 +1,5 @@
 /* App.css */
 
-/* General styles */
 body {
     font-family: Arial, sans-serif;
     display: flex;
@@ -15,16 +14,20 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+    padding: 20px;
   }
   
-  .mode-selector {
-    margin-bottom: 20px;
+  .buttons {
+    margin-bottom: 2vh;
   }
   
-  .mode-selector button {
-    margin: 0 10px;
-    padding: 10px 20px;
-    font-size: 16px;
+  .buttons button {
+    margin: 0 1vw;
+    padding: 1vh 2vw;
+    font-size: 2vh;
     cursor: pointer;
     border: none;
     background-color: #007bff;
@@ -33,27 +36,12 @@ body {
     transition: background-color 0.3s;
   }
   
-  .mode-selector button:hover {
+  .buttons button:hover {
     background-color: #0056b3;
   }
   
-  .theme-toggle {
-    margin-bottom: 20px;
-  }
-  
-  .theme-toggle button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
+  .buttons button {
     background-color: #28a745;
-    color: white;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-  }
-  
-  .theme-toggle button:hover {
-    background-color: #218838;
   }
   
   /* Board styles */
@@ -62,11 +50,11 @@ body {
   }
   
   .square {
-    width: 60px;
-    height: 60px;
+    width: 10vw;
+    height: 10vw;
     background-color: white;
     border: 1px solid #999;
-    font-size: 24px;
+    font-size: 4vw;
     font-weight: bold;
     cursor: pointer;
     display: flex;
@@ -80,9 +68,28 @@ body {
   }
   
   .status {
-    margin-bottom: 10px;
-    font-size: 20px;
+    margin-bottom: 2vh;
+    font-size: 3vh;
     font-weight: bold;
+  }
+  
+/* Responsive styles */
+@media (max-width: 600px) and (max-height: 600px) {
+    .square {
+      width: 15vw;
+      height: 15vw;
+      font-size: 6vw;
+    }
+  
+    .buttons button {
+      margin: 0 2vw;
+      padding: 2vh 4vw;
+      font-size: 3vw;
+    }
+  
+    .status {
+      font-size: 4vw;
+    }
   }
   
   /* Dark theme styles */
@@ -94,19 +101,18 @@ body {
   .game.dark .square {
     background-color: #444;
     border: 1px solid #666;
+    color: white;
   }
   
   .game.dark .square:hover {
     background-color: #555;
   }
   
-  .game.dark .mode-selector button,
-  .game.dark .theme-toggle button {
+  .game.dark .buttons button {
     background-color: #555;
     color: white;
   }
   
-  .game.dark .mode-selector button:hover,
-  .game.dark .theme-toggle button:hover {
+  .game.dark .buttons button:hover {
     background-color: #666;
   }
