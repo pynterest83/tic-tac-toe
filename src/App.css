@@ -174,3 +174,28 @@ body.dark {
     font-size: 6vw; /* Larger font size for smaller screens */
   }
 }
+
+/* Add this to your existing CSS file */
+
+.announcement {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  z-index: 2;
+  text-align: center;
+  min-width: 50%; /* Ensure the announcement box is wide enough */
+}
+
+.buttons svg {
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.buttons svg:hover {
+  color: #007bff; /* Add some hover effect for icons */
+}

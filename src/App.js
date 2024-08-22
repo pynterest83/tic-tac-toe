@@ -1,37 +1,45 @@
 import { useState, useEffect } from 'react';
 import findBestMove from './minimax';
 import { MdRestartAlt, MdSettings, MdInvertColors } from 'react-icons/md';
-import {BsPeopleFill, BsPersonFill} from 'react-icons/bs';
+import { BsPeopleFill, BsPersonFill } from 'react-icons/bs';
 import "./App.css";
 
 function Buttons({ onModeChange, onThemeChange, currentMode }) {
   return (
     <div className="buttons">
-      {/* Player vs Player Icon */}
       <BsPeopleFill 
         size={24} 
         title="Player vs Player"
         className={currentMode === 'PvP' ? 'active' : ''}
-        style={{ cursor: 'pointer' }}
         onClick={() => onModeChange('PvP')}
       />
       
-      {/* Player vs Environment Icon */}
       <BsPersonFill 
         size={24} 
         title="Player vs Environment"
         className={currentMode === 'PvE' ? 'active' : ''}
-        style={{ cursor: 'pointer' }}
         onClick={() => onModeChange('PvE')}
       />
       
-      {/* Toggle Theme Icon */}
       <MdInvertColors 
         size={24} 
         title="Toggle Theme"
-        style={{ cursor: 'pointer' }}
         onClick={onThemeChange}
       />
+      
+      <MdRestartAlt 
+        size={24} 
+        title="Restart Game"
+        onClick={() => onModeChange(currentMode)} // Restarting game by reselecting mode
+      />
+    </div>
+  );
+}
+
+function Announcement({ status }) {
+  return (
+    <div className="announcement">
+      {status}
     </div>
   );
 }
@@ -49,7 +57,7 @@ function Board({ xIsNext, squares, onPlay }) {
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
-    const newSquares = squares.slice(); // copy the array
+    const newSquares = squares.slice();
     newSquares[i] = xIsNext ? 'X' : 'O';
     onPlay(newSquares);
   }
@@ -98,7 +106,7 @@ function calculateWinner(squares) {
   ];
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
-    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c] && squares[a] !== null) {
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
       return squares[a];
     }
   }
@@ -111,8 +119,9 @@ function calculateWinner(squares) {
 export default function Game() {
   const [xIsNext, setXIsNext] = useState(true);
   const [squares, setSquares] = useState(Array(9).fill(null));
-  const [mode, setMode] = useState(null); // 'PvP' or 'PvE'
+  const [mode, setMode] = useState('PvP'); // Default to 'PvP'
   const [theme, setTheme] = useState('light');
+  const [announcement, setAnnouncement] = useState(null);
 
   function handlePlay(newSquares) {
     setSquares(newSquares);
@@ -123,6 +132,7 @@ export default function Game() {
     setMode(newMode);
     setSquares(Array(9).fill(null));
     setXIsNext(true);
+    setAnnouncement(null);
   }
 
   function handleThemeChange() {
@@ -130,7 +140,14 @@ export default function Game() {
   }
 
   useEffect(() => {
-    if (mode === 'PvE' && !xIsNext) {
+    const winner = calculateWinner(squares);
+    if (winner && winner !== 'draw') {
+      setAnnouncement(`Winner: ${winner}`);
+    } else if (winner === 'draw') {
+      setAnnouncement('Draw');
+    }
+
+    if (mode === 'PvE' && !xIsNext && !winner) {
       const bestMove = findBestMove(squares, 'O');
       const newSquares = squares.slice();
       newSquares[bestMove] = 'O';
@@ -140,9 +157,10 @@ export default function Game() {
 
   return (
     <div className={`game ${theme}`}>
-      <Buttons onModeChange={handleModeChange} onThemeChange={handleThemeChange} currentMode={mode}/>
+      <Buttons onModeChange={handleModeChange} onThemeChange={handleThemeChange} currentMode={mode} />
       <div className="game-board">
         <Board xIsNext={xIsNext} squares={squares} onPlay={handlePlay} />
+        {announcement && <Announcement status={announcement} />}
       </div>
       <span className='game-name'>Tic-Tac-Toe</span>
     </div>
